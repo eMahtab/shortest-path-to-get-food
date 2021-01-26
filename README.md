@@ -14,7 +14,7 @@ You are given an m x n character matrix, grid, of these different types of cells
 ```
 You can travel to any adjacent cell north, east, south, or west of your current location if there is not an obstacle.
 
-### Return the length of the shortest path for you to reach any food cell. If there is no path for you to reach food, return -1.
+#### Return the length of the shortest path for you to reach any food cell. If there is no path for you to reach food, return -1.
 
 
 ## Solution 1 : BFS
@@ -31,11 +31,12 @@ class Solution {
                 // there will be exactly one *
                 if(grid[i][j] == '*') {
                     q.add(new int[]{i,j});
+                    set.add(i+","+j);
                     break;
                 }
             }
         }
-        set.add("0,0");
+        
         int minSteps = 1;
         int[][] directions = {{0, 1}, {0,-1}, {-1, 0}, {1, 0}};
         while(!q.isEmpty()) {
