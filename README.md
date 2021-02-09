@@ -62,3 +62,49 @@ class Solution {
     }
 }
 ```
+
+## Solution 2 : BFS
+```java
+class Solution {
+    public int getFood(char[][] grid) {
+       if(grid == null || grid.length == 0)
+           return -1;
+        int rows = grid.length;
+        int cols = grid[0].length;
+        Set<String> set = new HashSet<>();
+        Queue<int[]> q = new LinkedList<>();
+        
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < cols; j++) {
+                if(grid[i][j] == '*') {
+                    q.add(new int[]{i,j});
+                    set.add(i+","+j);
+                    break;
+                }
+            }
+        }
+        int[][] directions = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+        int step = 0;
+        while(!q.isEmpty()) {
+            int size = q.size();
+            for(int i = 0; i < size; i++) {
+                int[] pos = q.remove();
+                if(grid[pos[0]][pos[1]] == '#') {
+                    return step;
+                }
+                    
+                for(int[] move : directions) {
+                    int x = pos[0] + move[0];
+                    int y = pos[1] + move[1];
+                    if(x >= 0 && x < rows && y >= 0 && y < cols && grid[x][y] != 'X' && !set.contains(x+","+y)) {
+                        q.add(new int[]{x,y});
+                        set.add(x+","+y);
+                    }
+                }
+            }
+            step++;
+        }
+       return -1; 
+    }
+}
+```
